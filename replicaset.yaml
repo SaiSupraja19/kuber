@@ -1,0 +1,28 @@
+# ReplicaSet is to create multiple pods with same specifications mentioned
+
+apiVersion: v1
+kind: ReplicaSet
+metadata: 
+    name: ReplicaSet
+    labels:           #these are replicaset related labels 
+        project: expense
+        app: frontend
+spec:
+    replicas: 3
+    selector:
+        matchLabels:        # these labels are used to find and create pods
+            project: expense
+            app: frontend
+    template:     # its for pod template(basically a pod creation)
+        metadata:
+          labels:           
+            project: expense
+            app: frontend
+        spec:
+          containers:
+          - name: nginx
+            image:  nginx
+
+
+# Drawback:
+# If we want to update any version details later in replicaset it will not create new pods again. Its main aim is to keep the created pods in running state.

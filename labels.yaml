@@ -1,0 +1,16 @@
+#Labels are just to add metadata to the container.. Its just for filtering purpose
+
+apiVersion: v1
+kind: Pod
+metadata: 
+    name: Labels
+    labels:
+      project: expense
+      environment: dev
+spec:  
+    container:
+    - name: nginx
+      image: nginx
+
+
+# Annotations are also just like labels.. But in annotations we can update labels like URL's

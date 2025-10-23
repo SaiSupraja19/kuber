@@ -1,0 +1,17 @@
+#PV will not be created by us. We usually ask storage team to create and give us the details.
+#PV is a wrapper object in kubernetes that represent the pysical volume.
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: pvc
+    namespace: expense
+spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+        storage: 30Gi
+    csi:
+        driver: ebs.csi.aws.com
+        fsType: ext4
+        volumeHandle: 

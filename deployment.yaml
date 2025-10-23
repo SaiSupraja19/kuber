@@ -1,0 +1,52 @@
+# This resource will delete old pods and create new pods with the latest version updated.
+
+apiVersion: v1
+kind: Deployment
+metadata: 
+    name: nginx-Deployment
+    labels:
+        project: expense
+        environment: dev
+        demo: v3
+spec:
+  replicas: 3
+  selector: 
+      matchLabels: 
+        project: expense
+        environment: dev
+        demo: v3
+  template:
+      metadata:
+          labels:
+            project: expense
+            environment: dev
+            demo: v3
+      spec:
+          containers:
+          - name: nginx
+            image: nginx
+
+
+#Replicat Set is the part of deployment. So deployment will frst create replicaset with name as deployment_name-randomnumbers and pods names will be like replica_name-randomnumbers
+
+# To make this public here we are creating service
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: dep-lb
+spec:
+    type: loadbalancer
+    selector:
+        project: expense
+        environment: dev
+        demo: v3
+    port:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      nodePort: 30017
+
+
+# to rollback deployment to immediate previous version:  kubectl rollout undo deployment/<name>
+# to check the deployment rollout status:  kubectl rollout 1
